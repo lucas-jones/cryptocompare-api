@@ -5,9 +5,16 @@
         "outDir": "lib",
         "sourceMap": true,
         "strict": true,
-        "target": "es2015"
+        "target": "es2015",
+        "types": [
+            "jest",
+            "node"
+        ]
     },
     "include": [
         "src/**/*"
+    ],
+    "files": [
+        "tsd/index.d.ts"
     ]
 }
