@@ -1,7 +1,10 @@
+global.fetch = require('node-fetch');
 import { request } from './helpers';
 
 import {
     CoinListResponse,
+    PriceMultiOptions,
+    PriceMultiResponse,
     PriceOptions,
     PriceResponse,
     QueryParamsObject,
@@ -25,5 +28,21 @@ export const getPrice = (options: PriceOptions): Promise<PriceResponse> => {
     return request('price', {
         ...opts,
         tsyms: toSymbols,
+    });
+};
+
+/**
+ * Same as single getPrice but with multiple from symbols.
+ * Returns a matrix.
+ */
+export const getPriceMulti = (options: PriceMultiOptions): Promise<PriceMultiResponse> => {
+    const { fsyms, tsyms, ...opts } = options;
+    const toSymbols = Array.isArray(tsyms) ? tsyms.join(',') : tsyms;
+    const fromSymbols = Array.isArray(fsyms) ? fsyms.join(',') : fsyms;
+
+    return request('pricemulti', {
+        ...opts,
+        tsyms: toSymbols,
+        fsyms: fromSymbols,
     });
 };

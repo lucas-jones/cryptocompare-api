@@ -31,28 +31,6 @@ export interface Coin {
     SortOrder: number;
 }
 
-export interface CoinListResponse {
-    /** The type of the response */
-    Response: 'Success' | 'Error';
-
-    /** The message for the response */
-    Message: string;
-
-    /** The base url for all the images from the ImageUrl field */
-    BaseImageUrl: string;
-
-    /** The base url for all the links from the Url field */
-    BaseLinkUrl: string;
-
-    /** Integer representing the type of response */
-    Type: number;
-
-    // TODO: fill out;
-    Data: {
-        [symbol: string]: Coin;
-    };
-}
-
 export interface PriceOptions {
     /** From symbol */
     fsym: string;
@@ -84,6 +62,63 @@ export interface PriceOptions {
     tryConversion?: boolean;
 }
 
+export interface PriceMultiOptions {
+    /** From symbol, include multiple symbols */
+    fsyms: string | string[];
+
+    /** To Symbols, include multiple symbols */
+    tsyms: string | string[];
+
+    /** Name of exchange.
+     * Default: CCCAGG
+     */
+    e?: string;
+
+    /**
+     * Name of your application.
+     * Default: NotAvailable
+     */
+    extraParams?: string;
+
+    /**
+     * If set to true, the server will sign the requests.
+     * Default: false
+     */
+    sign?: boolean;
+
+    /**
+     * If set to false, it will try to get values without using any conversion at all.
+     * Default: true
+     */
+    tryConversion?: boolean;
+}
+
+export interface CoinListResponse {
+    /** The type of the response */
+    Response: 'Success' | 'Error';
+
+    /** The message for the response */
+    Message: string;
+
+    /** The base url for all the images from the ImageUrl field */
+    BaseImageUrl: string;
+
+    /** The base url for all the links from the Url field */
+    BaseLinkUrl: string;
+
+    /** Integer representing the type of response */
+    Type: number;
+
+    // TODO: fill out;
+    Data: {
+        [symbol: string]: Coin;
+    };
+}
+
 export interface PriceResponse {
     [symbol: string]: number;
+}
+
+export interface PriceMultiResponse {
+    [symbol: string]: PriceResponse;
 }
