@@ -1,10 +1,11 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
-        "target": "es2015",
         "declaration": true,
+        "module": "commonjs",
         "outDir": "lib",
-        "sourceMap": true
+        "sourceMap": true,
+        "strict": true,
+        "target": "es2015"
     },
     "include": [
         "src/**/*"

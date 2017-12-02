@@ -1,12 +1,16 @@
 import {
     CoinListResponse,
+    PriceOptions,
+    PriceResponse,
+    QueryParamsObject,
 } from './interfaces';
 
 /**
  * Gets data from the CryptoCompare api.
  */
-export const request = (path: string): Promise<any> => {
-    const url = `https://min-api.cryptocompare.com/data/${path}`;
+export const request = (path: string, options: QueryParamsObject = {}): Promise<any> => {
+    const queryString = convertObjectToQueryString(options);
+    const url = `https://min-api.cryptocompare.com/data/${path}${queryString}`;
 
     return fetch(url)
         .then(res => res.json())
@@ -72,7 +76,15 @@ export const getMiningEquipment = () => {};
  * Get the latest price for a list of one or more currencies.
  * Really fast, 20-60 ms. Cached each 10 seconds.
  */
-export const getPrice = () => {};
+export const getPrice = (options: PriceOptions): Promise<PriceResponse> => {
+    const { tsyms, ...opts } = options;
+    const toSymbols = Array.isArray(tsyms) ? tsyms.join(',') : tsyms;
+
+    return request('price', {
+        ...opts,
+        tsyms: toSymbols,
+    });
+};
 
 /**
  * Get the price of any cryptocurrency in any other currency that you need at a given timestamp.
@@ -94,3 +106,22 @@ export const getSocialStats = () => {};
  * The number of pairs you get is the minimum of the limit you set (default 5) and the total number of pairs available.
  */
 export const getTopPairs = () => {};
+
+/**
+ * Takes an object and returns a query string
+ */
+export const convertObjectToQueryString = (obj: QueryParamsObject) => {
+    const queryParamPairs: string[] = [];
+
+    Object.keys(obj).forEach(key => {
+        const value = obj[key];
+
+        if (value !== undefined) {
+            queryParamPairs.push(`${key}=${value}`);
+        }
+    });
+
+    const queryString = queryParamPairs.join('&');
+
+    return queryString.length ? `?${queryString}` : queryString;
+};

@@ -1,3 +1,7 @@
+export interface QueryParamsObject {
+    [key: string]: any;
+}
+
 export interface Coin {
     /** The internal id, this is used in other calls */
     id: number;
@@ -47,4 +51,39 @@ export interface CoinListResponse {
     Data: {
         [symbol: string]: Coin;
     };
+}
+
+export interface PriceOptions {
+    /** From symbol */
+    fsym: string;
+
+    /** To Symbols, include multiple symbols */
+    tsyms: string | string[];
+
+    /** Name of exchange.
+     * Default: CCCAGG
+     */
+    e?: string;
+
+    /**
+     * Name of your application.
+     * Default: NotAvailable
+     */
+    extraParams?: string;
+
+    /**
+     * If set to true, the server will sign the requests.
+     * Default: false
+     */
+    sign?: string;
+
+    /**
+     * If set to false, it will try to get values without using any conversion at all.
+     * Default: true
+     */
+    tryConversion?: boolean;
+}
+
+export interface PriceResponse {
+    [symbol: string]: number;
 }
