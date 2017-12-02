@@ -1,0 +1,9 @@
+{
+  "name": "cryptocompare-api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "node-fetch": "^1.7.3"
+  }
+}
