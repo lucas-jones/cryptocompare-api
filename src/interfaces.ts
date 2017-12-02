@@ -75,7 +75,7 @@ export interface PriceOptions {
      * If set to true, the server will sign the requests.
      * Default: false
      */
-    sign?: string;
+    sign?: boolean;
 
     /**
      * If set to false, it will try to get values without using any conversion at all.

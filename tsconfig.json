@@ -1,5 +1,6 @@
 {
     "compilerOptions": {
+        "baseUrl": "src",
         "declaration": true,
         "module": "commonjs",
         "outDir": "lib",
@@ -12,7 +13,7 @@
         ]
     },
     "include": [
-        "src/**/*"
+        "src/index.ts"
     ],
     "files": [
         "tsd/index.d.ts"
