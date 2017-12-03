@@ -24,13 +24,7 @@ export const getCoinList = (): Promise<CoinListResponse> => {
  * Really fast, 20-60 ms. Cached each 10 seconds.
  */
 export const getPrice = (options: PriceOptions): Promise<PriceResponse> => {
-    const { tsyms, ...opts } = options;
-    const toSymbols = Array.isArray(tsyms) ? tsyms.join(',') : tsyms;
-
-    return request('price', {
-        ...opts,
-        tsyms: toSymbols,
-    });
+    return request('price', options);
 };
 
 /**
@@ -38,15 +32,7 @@ export const getPrice = (options: PriceOptions): Promise<PriceResponse> => {
  * Returns a matrix.
  */
 export const getPriceMulti = (options: PriceMultiOptions): Promise<PriceMultiResponse> => {
-    const { fsyms, tsyms, ...opts } = options;
-    const toSymbols = Array.isArray(tsyms) ? tsyms.join(',') : tsyms;
-    const fromSymbols = Array.isArray(fsyms) ? fsyms.join(',') : fsyms;
-
-    return request('pricemulti', {
-        ...opts,
-        tsyms: toSymbols,
-        fsyms: fromSymbols,
-    });
+    return request('pricemulti', options);
 };
 
 /**
@@ -56,15 +42,7 @@ export const getPriceMulti = (options: PriceMultiOptions): Promise<PriceMultiRes
  * If the oposite pair trades, it is inverted (eg.: BTC-XMR).
  */
 export const getPriceMultiFull = (options: PriceMultiOptions): Promise<PriceMultiFullResponse> => {
-    const { fsyms, tsyms, ...opts } = options;
-    const toSymbols = Array.isArray(tsyms) ? tsyms.join(',') : tsyms;
-    const fromSymbols = Array.isArray(fsyms) ? fsyms.join(',') : fsyms;
-
-    return request('pricemultifull', {
-        ...opts,
-        tsyms: toSymbols,
-        fsyms: fromSymbols,
-    });
+    return request('pricemultifull', options);
 };
 
 /**

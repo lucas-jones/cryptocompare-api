@@ -21,6 +21,12 @@ describe('helpers', () => {
             })).toEqual('?foo=bar');
         });
 
+        it('combine values that are arrays', () => {
+            expect(convertObjectToQueryString({
+                symbols: ['USD', 'LTC', 'BTC'],
+            })).toEqual('?symbols=USD,LTC,BTC');
+        });
+
         it('returns multiple key-value pairs', () => {
             expect(convertObjectToQueryString({
                 foo: 'bar',

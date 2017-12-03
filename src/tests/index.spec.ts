@@ -10,120 +10,38 @@ jest.mock('helpers');
 
 describe('cryptocompare-api', () => {
     describe('getPrice', () => {
-        it('passes all options as is to request if tsyms is a string', () => {
-            getPrice({
+        it('requests for the price', () => {
+            const options = {
                 fsym: 'BTC',
-                tsyms: 'ETH',
-                sign: true,
-            });
+                tsyms: ['ETH', 'USD'],
+            };
+            getPrice(options);
 
-            expect(request).toBeCalledWith('price', {
-                fsym: 'BTC',
-                tsyms: 'ETH',
-                sign: true,
-            });
-        });
-
-        it('combines all of the tsyms if it is an array before passing it to request', () => {
-            getPrice({
-                fsym: 'BTC',
-                tsyms: ['ETH', 'LTC', 'BTC'],
-                sign: false,
-            });
-
-            expect(request).toBeCalledWith('price', {
-                fsym: 'BTC',
-                tsyms: 'ETH,LTC,BTC',
-                sign: false,
-            });
+            expect(request).toBeCalledWith('price', options);
         });
     });
 
     describe('getPriceMulti', () => {
-        it('passes options as is when tsyms and fsyms are strings', () => {
-            getPriceMulti({
-                fsyms: 'BTC',
-                tsyms: 'ETH',
-                sign: true,
-            });
+        it('requests for a matrix of prices', () => {
+            const options = {
+                fsyms: ['BTC', 'USD'],
+                tsyms: ['ETH', 'LTC'],
+            };
+            getPriceMulti(options);
 
-            expect(request).toBeCalledWith('pricemulti', {
-                fsyms: 'BTC',
-                tsyms: 'ETH',
-                sign: true,
-            });
-        });
-
-        it('joins the fsyms string if it is an array', () => {
-            getPriceMulti({
-                fsyms: ['BTC', 'LTC'],
-                tsyms: 'ETH',
-                sign: false,
-            });
-
-            expect(request).toBeCalledWith('pricemulti', {
-                fsyms: 'BTC,LTC',
-                tsyms: 'ETH',
-                sign: false,
-            });
-        });
-
-        it('joins the tsyms string if it is an array', () => {
-            getPriceMulti({
-                fsyms: 'BTC',
-                tsyms: ['ETH', 'LTC', 'BTC'],
-                sign: false,
-            });
-
-            expect(request).toBeCalledWith('pricemulti', {
-                fsyms: 'BTC',
-                tsyms: 'ETH,LTC,BTC',
-                sign: false,
-            });
+            expect(request).toBeCalledWith('pricemulti', options);
         });
     });
 
     describe('getPriceMultiFull', () => {
-        it('passes options as is when tsyms and fsyms are strings', () => {
-            getPriceMultiFull({
-                fsyms: 'BTC',
-                tsyms: 'ETH',
-                sign: true,
-            });
-
-            expect(request).toBeCalledWith('pricemultifull', {
-                fsyms: 'BTC',
-                tsyms: 'ETH',
-                sign: true,
-            });
-        });
-
-        it('joins the fsyms string if it is an array', () => {
-            getPriceMultiFull({
+        it('requests for a matrix of prices with full details', () => {
+            const options = {
                 fsyms: ['BTC', 'LTC'],
-                tsyms: 'ETH',
-                sign: false,
-            });
-
-            expect(request).toBeCalledWith('pricemultifull', {
-                fsyms: 'BTC,LTC',
-                tsyms: 'ETH',
-                sign: false,
-            });
-        });
-
-        it('joins the tsyms string if it is an array', () => {
-            getPriceMultiFull({
-                fsyms: 'BTC',
                 tsyms: ['ETH', 'LTC', 'BTC'],
-                sign: false,
-            });
+            };
+            getPriceMultiFull(options);
 
-            expect(request).toBeCalledWith('pricemultifull', {
-                fsyms: 'BTC',
-                tsyms: 'ETH,LTC,BTC',
-                sign: false,
-            });
+            expect(request).toBeCalledWith('pricemultifull', options);
         });
     });
 
@@ -137,8 +55,8 @@ describe('cryptocompare-api', () => {
                     'Kraken',
                 ],
             };
-
             generateAverage(options);
+
             expect(request).toBeCalledWith('generateAvg', options);
         });
     });
