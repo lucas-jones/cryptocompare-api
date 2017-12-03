@@ -3,6 +3,7 @@ import { request } from '../helpers';
 import {
     generateAverage,
     getPrice,
+    getPriceHistorical,
     getPriceMulti,
     getPriceMultiFull,
 } from '../';
@@ -59,6 +60,22 @@ describe('cryptocompare-api', () => {
             generateAverage(options);
 
             expect(request).toBeCalledWith('data/generateAvg', options);
+        });
+    });
+
+    describe('getPriceHistorical', () => {
+        it('requests the historical price', () => {
+            const options = {
+                fsym: 'ETH',
+                tsyms: ['USD', 'LTC'],
+                e: [
+                    'Coinbase',
+                    'Kraken',
+                ],
+            };
+            getPriceHistorical(options);
+
+            expect(request).toBeCalledWith('data/pricehistorical', options);
         });
     });
 });

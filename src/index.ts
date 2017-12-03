@@ -8,6 +8,8 @@ import {
     CoinListResponse,
     GenerateAverageOptions,
     GenerateAverageResponse,
+    PriceHistoricalOptions,
+    PriceHistoricalResponse,
     PriceMultiFullResponse,
     PriceMultiOptions,
     PriceMultiResponse,
@@ -56,6 +58,17 @@ export const getPriceMultiFull = (options: PriceMultiOptions): Promise<PriceMult
  */
 export const generateAverage = (options: GenerateAverageOptions): Promise<GenerateAverageResponse> => {
     return request('data/generateAvg', options);
+};
+
+/**
+ * Get the price of any cryptocurrency in any other currency that you need at a given timestamp.
+ * The price comes from the daily info, so it would be the price at the end of the day GMT based on the requested TS.
+ * If the crypto does not trade directly into the toSymbol requested, BTC will be used for conversion.
+ * Tries to get direct trading pair data. If there is none or it is more than 30 days before the ts requested, it uses BTC conversion.
+ * If the opposite pair trades, it is inverted (eg.: BTC-XMR).
+ */
+export const getPriceHistorical = (options: PriceHistoricalOptions): Promise<PriceHistoricalResponse> => {
+    return request('data/pricehistorical');
 };
 
 /**

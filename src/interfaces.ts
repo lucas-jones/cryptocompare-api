@@ -1,7 +1,5 @@
 export type fromSymbol = string;
-export type fromSymbols = string | string[];
 export type toSymbol = string;
-export type toSymbols = string | string[];
 export type market = string;
 
 export interface QueryParamsObject {
@@ -62,22 +60,22 @@ export interface PriceOptions extends BaseOptions {
     fsym: fromSymbol;
 
     /** To Symbols, include multiple symbols */
-    tsyms: toSymbols;
+    tsyms: toSymbol[];
 
-    /** Name of exchange.
+    /**
+     * Name of exchange.
      * Default: CCCAGG (CryptoCompare Current Aggregate)
      */
     e?: market;
 }
 
 export interface PriceMultiOptions extends BaseOptions {
-    /** From symbol, include multiple symbols */
-    fsyms: fromSymbols;
+    fsyms: fromSymbol[];
 
-    /** To Symbols, include multiple symbols */
-    tsyms: toSymbols;
+    tsyms: toSymbol[];
 
-    /** Name of exchange.
+    /**
+     * Name of exchange.
      * Default: CCCAGG (CryptoCompare Current Aggregate)
      */
     e?: market;
@@ -92,6 +90,26 @@ export interface GenerateAverageOptions extends BaseOptions {
 
     /** Names of exchanges. */
     e: market[];
+}
+
+export interface PriceHistoricalOptions extends BaseOptions {
+    /** From symbol */
+    fsym: fromSymbol;
+
+    /** To Symbol */
+    tsyms: toSymbol[];
+
+    /**
+     * Name of exchanges, include multiple
+     * Default: CCCAGG (CryptoCompare Current Aggregate)
+     */
+    e?: market | market[];
+
+    /** Epoch unix timestamp for day to retrieve price from */
+    ts?: number;
+
+    /** Default: Close */
+    calculationType?: string;
 }
 
 export interface CoinListResponse {
@@ -206,6 +224,8 @@ export interface GenerateAverageResponse {
     RAW: FullRawResponse;
     DISPLAY: FullDisplayResponse;
 }
+
+export type PriceHistoricalResponse = PriceMultiResponse;
 
 export interface RateLimitStats {
     Histo: number;
