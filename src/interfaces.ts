@@ -49,6 +49,29 @@ export interface CoinByVolume {
     VOLUME24HOURTO: number;
 }
 
+export interface HistoricalMetrics {
+    /** Unix timestamp of day */
+    time: number;
+
+    /** Value in to symbol at the end of the day */
+    close: number;
+
+    /** Highest value in to symbol that day */
+    high: number;
+
+    /** Lowest value in to symbol that day */
+    low: number;
+
+    /** Value in to symbol at the start of the day */
+    open: number;
+
+    /** Number of from symbol traded into to symbol on the day */
+    volumefrom: number;
+
+    /** Number of to symbol traded from the from symbol on the day */
+    volumeto: number;
+}
+
 export interface BaseOptions {
     /**
      * Name of your application.
@@ -121,7 +144,7 @@ export interface PriceHistoricalOptions extends ConversionOptions {
      */
     e?: market | market[];
 
-    /** Epoch unix timestamp for day to retrieve price from */
+    /** Unix timestamp for day to retrieve price from */
     ts?: number;
 
     /** Default: Close */
@@ -144,7 +167,7 @@ export interface DayAverageOptions extends ConversionOptions {
      */
     UTCHourDiff?: number;
 
-    /** Epoch unix timestamp for day to average */
+    /** Unix timestamp for day to average */
     toTs?: number;
 }
 
@@ -165,6 +188,39 @@ export interface TopCoinsByVolumeOptions extends BaseOptions {
 
     /* Max number of top coins */
     limit?: number;
+}
+
+export interface HistoricalOptions extends ConversionOptions {
+    /** To symbol */
+    fsym: fromSymbol;
+
+    /** From symbol */
+    tsym: toSymbol;
+
+    /**
+     * Name of exchange
+     * Default: CCCAGG (CryptoCompare Current Aggregate)
+     */
+    e?: string;
+
+    aggregate?: number;
+
+    /**
+     * Limit of days to return.
+     * Will not be used if allData is true.
+     * Default: 30
+     */
+    limit?: number;
+
+    /**
+     * Flag for returning all available days.
+     */
+    allData?: boolean;
+
+    /**
+     * Starting unix timestamp
+     */
+    toTs?: number;
 }
 
 export interface CoinListResponse {
@@ -326,4 +382,15 @@ export interface TopCoinsByVolumeResponse {
 
     /** Status message of request */
     Message: string;
+}
+
+export interface HistoricalResponse {
+    Response: keyof typeof ResponseStatus;
+    Type: number;
+    Aggregated: false;
+    Data: HistoricalMetrics[];
+    TimeTo: number;
+    TimeFrom: number;
+    FirstValueInArray: boolean;
+    ConversionType: ConversionType;
 }

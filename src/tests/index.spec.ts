@@ -3,6 +3,9 @@ import { request } from '../helpers';
 import {
     generateAverage,
     getDayAverage,
+    getHistoricalDays,
+    getHistoricalHours,
+    getHistoricalMinutes,
     getPrice,
     getPriceHistorical,
     getPriceMulti,
@@ -140,6 +143,48 @@ describe('cryptocompare-api', () => {
 
             expect(request).toBeCalledWith('data/top/volumes', {
                 tsym: 'USD',
+            });
+        });
+    });
+
+    describe('getHistoricalDays', () => {
+        it('requests history data for days', () => {
+            getHistoricalDays({
+                fsym: 'USD',
+                tsym: 'ETH',
+            });
+
+            expect(request).toBeCalledWith('data/histoday', {
+                fsym: 'USD',
+                tsym: 'ETH',
+            });
+        });
+    });
+
+    describe('getHistoricalHours', () => {
+        it('requests history data for hours', () => {
+            getHistoricalHours({
+                fsym: 'USD',
+                tsym: 'ETH',
+            });
+
+            expect(request).toBeCalledWith('data/histohour', {
+                fsym: 'USD',
+                tsym: 'ETH',
+            });
+        });
+    });
+
+    describe('getHistoricalMinutes', () => {
+        it('requests history data for minutes', () => {
+            getHistoricalMinutes({
+                fsym: 'USD',
+                tsym: 'ETH',
+            });
+
+            expect(request).toBeCalledWith('data/histominute', {
+                fsym: 'USD',
+                tsym: 'ETH',
             });
         });
     });

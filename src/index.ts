@@ -10,6 +10,8 @@ import {
     DayAverageResponse,
     GenerateAverageOptions,
     GenerateAverageResponse,
+    HistoricalOptions,
+    HistoricalResponse,
     PriceHistoricalOptions,
     PriceHistoricalResponse,
     PriceMultiFullResponse,
@@ -107,6 +109,32 @@ export const getTopExchangesByVolume = (options: TopExchangesOptions): Promise<T
  */
 export const getTopCoinsByVolume = (options: TopCoinsByVolumeOptions): Promise<TopCoinsByVolumeResponse> => {
     return request('data/top/volumes', options);
+};
+
+/**
+ * Get open, high, low, close, volumefrom and volumeto from the daily historical data.
+ * The values are based on 00:00 GMT time.
+ * It uses BTC conversion if data is not available because the coin is not trading in the specified currency.
+ */
+export const getHistoricalDays = (options: HistoricalOptions): Promise<HistoricalResponse> => {
+    return request('data/histoday', options);
+};
+
+/**
+ * Get open, high, low, close, volumefrom and volumeto from the hourly historical data.
+ * It uses BTC conversion if data is not available because the coin is not trading in the specified currency.
+ */
+export const getHistoricalHours = (options: HistoricalOptions): Promise<HistoricalResponse> => {
+    return request('data/histohour', options);
+};
+
+/**
+ * Get open, high, low, close, volumefrom and volumeto from the each minute historical data.
+ * This data is only stored for 7 days, if you need more, use the hourly or daily path.
+ * It uses BTC conversion if data is not available because the coin is not trading in the specified currency.
+ */
+export const getHistoricalMinutes = (options: HistoricalOptions): Promise<HistoricalResponse> => {
+    return request('data/histominute', options);
 };
 
 /**
