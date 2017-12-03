@@ -44,8 +44,9 @@ export const convertObjectToQueryString = (obj: QueryParamsObject) => {
  * Will return a date in epoch unix time
  */
 export const stringifyQueryParamValue = (value: any) => { // tslint:disable-line:no-any
+    // Converts to unix timestamp
     if (value instanceof Date) {
-        return value.getTime();
+        return Math.floor(value.getTime() / 1000);
     }
 
     return value.toString();

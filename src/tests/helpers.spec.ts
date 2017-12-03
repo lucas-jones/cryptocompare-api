@@ -40,7 +40,7 @@ describe('helpers', () => {
         it('converts date objects into epoch unix time', () => {
             expect(convertObjectToQueryString({
                 ts: new Date(1512279698326),
-            })).toEqual('?ts=1512279698326');
+            })).toEqual('?ts=1483228800');
         });
     });
 
