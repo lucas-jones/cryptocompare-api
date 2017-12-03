@@ -1,3 +1,5 @@
+/// <reference path="../typings/global.d.ts" />
+
 import {
     convertObjectToQueryString,
     request,
