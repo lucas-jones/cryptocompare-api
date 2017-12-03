@@ -41,11 +41,22 @@ export interface Coin {
 }
 
 export interface CoinByVolume {
+    /** Symbol of coin */
     SYMBOL: string;
+
+    /** Number of supply of coin */
     SUPPLY: number;
+
+    /** Full name of coin (includes symbol) */
     FULLNAME: string;
+
+    /** Name of coin */
     NAME: string;
+
+    /** CryptoCompare's ID of coin */
     ID: string;
+
+    /** 24 volume of this coin to the to symbol */
     VOLUME24HOURTO: number;
 }
 
@@ -98,7 +109,7 @@ export interface PriceOptions extends ConversionOptions {
     /** From symbol */
     fsym: fromSymbol;
 
-    /** To Symbols, include multiple symbols */
+    /** To symbols */
     tsyms: toSymbol[];
 
     /**
@@ -109,8 +120,10 @@ export interface PriceOptions extends ConversionOptions {
 }
 
 export interface PriceMultiOptions extends ConversionOptions {
+    /** From symbols symbols */
     fsyms: fromSymbol[];
 
+    /** To symbols */
     tsyms: toSymbol[];
 
     /**
@@ -127,7 +140,7 @@ export interface GenerateAverageOptions extends ConversionOptions {
     /** To Symbol */
     tsym: toSymbol;
 
-    /** Names of exchanges. */
+    /** Names of exchanges */
     e: market[];
 }
 
@@ -135,11 +148,11 @@ export interface PriceHistoricalOptions extends ConversionOptions {
     /** From symbol */
     fsym: fromSymbol;
 
-    /** To Symbols */
+    /** To symbols */
     tsyms: toSymbol[];
 
     /**
-     * Name of exchanges, include multiple
+     * Name of exchanges
      * Default: CCCAGG (CryptoCompare Current Aggregate)
      */
     e?: market | market[];
@@ -159,7 +172,7 @@ export interface DayAverageOptions extends ConversionOptions {
     tsym: toSymbol;
 
     /**
-     * Name of exchanges, include multiple
+     * Name of exchanges
      * Default: CCCAGG (CryptoCompare Current Aggregate)
      */
     e?: market[];
@@ -170,6 +183,7 @@ export interface DayAverageOptions extends ConversionOptions {
     /**
      * By default, timestamp is based on UTC.
      * For different timezones, use +/- hours on UTC.
+     * Default: 0
      */
     UTCHourDiff?: number;
 
@@ -184,7 +198,10 @@ export interface TopExchangesOptions extends BaseOptions {
     /** To symbol */
     tsym: toSymbol;
 
-    /* Max number of top exchanges */
+    /*
+     * Max number of top exchanges
+     * Default: 5
+     */
     limit?: number;
 }
 
@@ -192,7 +209,10 @@ export interface TopCoinsByVolumeOptions extends BaseOptions {
     /** To symbol */
     tsym: toSymbol;
 
-    /* Max number of top coins */
+    /*
+     * Max number of top coins
+     * Default: 20
+     */
     limit?: number;
 }
 
@@ -209,6 +229,7 @@ export interface HistoricalOptions extends ConversionOptions {
      */
     e?: string;
 
+    /** Default: 1 */
     aggregate?: number;
 
     /**
@@ -220,6 +241,7 @@ export interface HistoricalOptions extends ConversionOptions {
 
     /**
      * Flag for returning all available days.
+     * Default: false
      */
     allData?: boolean;
 
@@ -383,7 +405,7 @@ export interface TopCoinsByVolumeResponse {
     /** The type of the response */
     Response: keyof typeof ResponseStatus;
 
-    /** to symbol */
+    /** To symbol */
     VolSymbol: string;
 
     /** Status message of request */
@@ -391,12 +413,25 @@ export interface TopCoinsByVolumeResponse {
 }
 
 export interface HistoricalResponse {
+    /** The type of the response */
     Response: keyof typeof ResponseStatus;
+
+    /** Integer representing the type of response */
     Type: number;
+
+    /** Flag for whether or not the response was aggreagted */
     Aggregated: false;
+
     Data: HistoricalMetrics[];
+
+    /** Unix timestamp of start date of response */
     TimeTo: number;
+
+    /** Unix timestamp of end date of response */
     TimeFrom: number;
+
+    /** Flag indicating whether or not there is a value in the response */
     FirstValueInArray: boolean;
+    
     ConversionType: ConversionType;
 }
