@@ -1,3 +1,9 @@
+export type fromSymbol = string;
+export type fromSymbols = string | string[];
+export type toSymbol = string;
+export type toSymbols = string | string[];
+export type market = string;
+
 export interface QueryParamsObject {
     [key: string]: any; // tslint:disable-line:no-any
 }
@@ -31,18 +37,7 @@ export interface Coin {
     SortOrder: number;
 }
 
-export interface PriceOptions {
-    /** From symbol */
-    fsym: string;
-
-    /** To Symbols, include multiple symbols */
-    tsyms: string | string[];
-
-    /** Name of exchange.
-     * Default: CCCAGG (CryptoCompare Current Aggregate)
-     */
-    e?: string;
-
+export interface BaseOptions {
     /**
      * Name of your application.
      * Default: NotAvailable
@@ -62,64 +57,41 @@ export interface PriceOptions {
     tryConversion?: boolean;
 }
 
-export interface PriceMultiOptions {
+export interface PriceOptions extends BaseOptions {
+    /** From symbol */
+    fsym: fromSymbol;
+
+    /** To Symbols, include multiple symbols */
+    tsyms: toSymbols;
+
+    /** Name of exchange.
+     * Default: CCCAGG (CryptoCompare Current Aggregate)
+     */
+    e?: market;
+}
+
+export interface PriceMultiOptions extends BaseOptions {
     /** From symbol, include multiple symbols */
-    fsyms: string | string[];
+    fsyms: fromSymbols;
 
     /** To Symbols, include multiple symbols */
-    tsyms: string | string[];
+    tsyms: toSymbols;
 
     /** Name of exchange.
      * Default: CCCAGG (CryptoCompare Current Aggregate)
      */
-    e?: string;
-
-    /**
-     * Name of your application.
-     * Default: NotAvailable
-     */
-    extraParams?: string;
-
-    /**
-     * If set to true, the server will sign the requests.
-     * Default: false
-     */
-    sign?: boolean;
-
-    /**
-     * If set to false, it will try to get values without using any conversion at all.
-     * Default: true
-     */
-    tryConversion?: boolean;
+    e?: market;
 }
 
-export interface GenerateAverageOptions {
+export interface GenerateAverageOptions extends BaseOptions {
     /** From symbol */
-    fsym: string;
+    fsym: fromSymbol;
 
     /** To Symbol */
-    tsym: string;
+    tsym: toSymbol;
 
     /** Names of exchanges. */
-    e: string[];
-
-    /**
-     * Name of your application.
-     * Default: NotAvailable
-     */
-    extraParams?: string;
-
-    /**
-     * If set to true, the server will sign the requests.
-     * Default: false
-     */
-    sign?: boolean;
-
-    /**
-     * If set to false, it will try to get values without using any conversion at all.
-     * Default: true
-     */
-    tryConversion?: boolean;
+    e: market[];
 }
 
 export interface CoinListResponse {
@@ -138,17 +110,19 @@ export interface CoinListResponse {
     /** Integer representing the type of response */
     Type: number;
 
-    // TODO: fill out;
+    /** Object containing all currencies and their associated data */
     Data: {
         [currencySymbol: string]: Coin;
     };
 }
 
 export interface PriceResponse {
+    /** Currency to value mapping */
     [currencySymbol: string]: number;
 }
 
 export interface PriceMultiResponse {
+    /** Currency to currency mapping */
     [currencySymbol: string]: PriceResponse;
 }
 
