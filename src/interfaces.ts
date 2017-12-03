@@ -158,6 +158,12 @@ export interface DayAverageOptions extends ConversionOptions {
     /** To symbol */
     tsym: toSymbol;
 
+    /**
+     * Name of exchanges, include multiple
+     * Default: CCCAGG (CryptoCompare Current Aggregate)
+     */
+    e?: market[];
+
     /** Default: HourVWAP */
     avgType?: string;
 

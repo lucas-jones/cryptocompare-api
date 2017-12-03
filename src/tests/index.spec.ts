@@ -20,12 +20,20 @@ describe('cryptocompare-api', () => {
     describe('getPrice', () => {
         it('requests for the price', () => {
             getPrice({
+                e: 'Coinbase',
+                extraParams: 'app',
                 fsym: 'BTC',
+                sign: true,
+                tryConversion: false,
                 tsyms: ['ETH', 'USD'],
             });
 
             expect(request).toBeCalledWith('data/price', {
+                e: 'Coinbase',
+                extraParams: 'app',
                 fsym: 'BTC',
+                sign: true,
+                tryConversion: false,
                 tsyms: ['ETH', 'USD'],
             });
         });
@@ -34,12 +42,20 @@ describe('cryptocompare-api', () => {
     describe('getPriceMulti', () => {
         it('requests for a matrix of prices', () => {
             getPriceMulti({
+                e: 'Coinbase',
+                extraParams: 'app',
                 fsyms: ['BTC', 'USD'],
+                sign: false,
+                tryConversion: true,
                 tsyms: ['ETH', 'LTC'],
             });
 
             expect(request).toBeCalledWith('data/pricemulti', {
+                e: 'Coinbase',
+                extraParams: 'app',
                 fsyms: ['BTC', 'USD'],
+                sign: false,
+                tryConversion: true,
                 tsyms: ['ETH', 'LTC'],
             });
         });
@@ -84,21 +100,25 @@ describe('cryptocompare-api', () => {
     describe('getPriceHistorical', () => {
         it('requests the historical price', () => {
             getPriceHistorical({
+                calculationType: 'HourVWAP',
+                e: ['Coinbase', 'Kraken'],
+                extraParams: 'app',
                 fsym: 'ETH',
+                sign: true,
+                tryConversion: false,
+                ts: 123456789,
                 tsyms: ['USD', 'LTC'],
-                e: [
-                    'Coinbase',
-                    'Kraken',
-                ],
             });
 
             expect(request).toBeCalledWith('data/pricehistorical', {
+                calculationType: 'HourVWAP',
+                e: ['Coinbase', 'Kraken'],
+                extraParams: 'app',
                 fsym: 'ETH',
+                sign: true,
+                tryConversion: false,
+                ts: 123456789,
                 tsyms: ['USD', 'LTC'],
-                e: [
-                    'Coinbase',
-                    'Kraken',
-                ],
             });
         });
     });
@@ -106,17 +126,27 @@ describe('cryptocompare-api', () => {
     describe('getDayAverage', () => {
         it('requests the day average', () => {
             getDayAverage({
+                avgType: 'HourVWAP',
+                e: ['Coinbase', 'Kraken'],
+                extraParams: 'app',
                 fsym: 'ETH',
-                tsym: 'USD',
-                avgType: 'HOURVWAP',
+                sign: false,
                 toTs: 1512279137525,
+                tryConversion: true,
+                tsym: 'USD',
+                UTCHourDiff: 10,
             });
 
             expect(request).toBeCalledWith('data/dayAvg', {
+                avgType: 'HourVWAP',
+                e: ['Coinbase', 'Kraken'],
+                extraParams: 'app',
                 fsym: 'ETH',
-                tsym: 'USD',
-                avgType: 'HOURVWAP',
+                sign: false,
                 toTs: 1512279137525,
+                tryConversion: true,
+                tsym: 'USD',
+                UTCHourDiff: 10,
             });
         });
     });
@@ -124,12 +154,18 @@ describe('cryptocompare-api', () => {
     describe('getTopExchangesByVolume', () => {
         it('requests the top exchanges', () => {
             getTopExchangesByVolume({
+                extraParams: 'app',
                 fsym: 'USD',
+                limit: 10,
+                sign: false,
                 tsym: 'ETH',
             });
 
             expect(request).toBeCalledWith('data/top/exchanges', {
+                extraParams: 'app',
                 fsym: 'USD',
+                limit: 10,
+                sign: false,
                 tsym: 'ETH',
             });
         });
@@ -138,10 +174,16 @@ describe('cryptocompare-api', () => {
     describe('getTopCoinsByVolume', () => {
         it('requests the top exchanges', () => {
             getTopCoinsByVolume({
-                tsym: 'USD'
+                extraParams: 'app',
+                limit: 20,
+                sign: false,
+                tsym: 'USD',
             });
 
             expect(request).toBeCalledWith('data/top/volumes', {
+                extraParams: 'app',
+                limit: 20,
+                sign: false,
                 tsym: 'USD',
             });
         });
@@ -150,12 +192,28 @@ describe('cryptocompare-api', () => {
     describe('getHistoricalDays', () => {
         it('requests history data for days', () => {
             getHistoricalDays({
+                aggregate: 10,
+                allData: false,
+                e: 'Coinbase',
+                extraParams: 'app',
                 fsym: 'USD',
+                limit: 5,
+                sign: false,
+                toTs: 123456789,
+                tryConversion: false,
                 tsym: 'ETH',
             });
 
             expect(request).toBeCalledWith('data/histoday', {
+                aggregate: 10,
+                allData: false,
+                e: 'Coinbase',
+                extraParams: 'app',
                 fsym: 'USD',
+                limit: 5,
+                sign: false,
+                toTs: 123456789,
+                tryConversion: false,
                 tsym: 'ETH',
             });
         });
@@ -164,12 +222,28 @@ describe('cryptocompare-api', () => {
     describe('getHistoricalHours', () => {
         it('requests history data for hours', () => {
             getHistoricalHours({
+                aggregate: 10,
+                allData: false,
+                e: 'Coinbase',
+                extraParams: 'app',
                 fsym: 'USD',
+                limit: 5,
+                sign: false,
+                toTs: 123456789,
+                tryConversion: false,
                 tsym: 'ETH',
             });
 
             expect(request).toBeCalledWith('data/histohour', {
+                aggregate: 10,
+                allData: false,
+                e: 'Coinbase',
+                extraParams: 'app',
                 fsym: 'USD',
+                limit: 5,
+                sign: false,
+                toTs: 123456789,
+                tryConversion: false,
                 tsym: 'ETH',
             });
         });
@@ -178,12 +252,28 @@ describe('cryptocompare-api', () => {
     describe('getHistoricalMinutes', () => {
         it('requests history data for minutes', () => {
             getHistoricalMinutes({
+                aggregate: 10,
+                allData: false,
+                e: 'Coinbase',
+                extraParams: 'app',
                 fsym: 'USD',
+                limit: 5,
+                sign: false,
+                toTs: 123456789,
+                tryConversion: false,
                 tsym: 'ETH',
             });
 
             expect(request).toBeCalledWith('data/histominute', {
+                aggregate: 10,
+                allData: false,
+                e: 'Coinbase',
+                extraParams: 'app',
                 fsym: 'USD',
+                limit: 5,
+                sign: false,
+                toTs: 123456789,
+                tryConversion: false,
                 tsym: 'ETH',
             });
         });
