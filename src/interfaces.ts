@@ -96,7 +96,7 @@ export interface PriceHistoricalOptions extends BaseOptions {
     /** From symbol */
     fsym: fromSymbol;
 
-    /** To Symbol */
+    /** To Symbols */
     tsyms: toSymbol[];
 
     /**
@@ -110,6 +110,26 @@ export interface PriceHistoricalOptions extends BaseOptions {
 
     /** Default: Close */
     calculationType?: string;
+}
+
+export interface DayAverageOptions extends BaseOptions {
+    /** From symbol */
+    fsym: fromSymbol;
+
+    /** To symbol */
+    tsym: toSymbol;
+
+    /** Default: HourVWAP */
+    avgType?: string;
+
+    /**
+     * By default, timestamp is based on UTC.
+     * For different timezones, use +/- hours on UTC.
+     */
+    UTCHourDiff?: number;
+
+    /** Epoch unix timestamp for day to average */
+    toTs?: number;
 }
 
 export interface CoinListResponse {
@@ -226,6 +246,16 @@ export interface GenerateAverageResponse {
 }
 
 export type PriceHistoricalResponse = PriceMultiResponse;
+
+export interface ConversionType {
+    type: string; // tslint:disable-line:no-reserved-keywords
+    conversionSymbol: string;
+}
+
+export interface DayAverageResponse {
+    ConversionType: ConversionType;
+    [currencySymbol: string]: string | ConversionType;
+}
 
 export interface RateLimitStats {
     Histo: number;

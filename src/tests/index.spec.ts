@@ -2,6 +2,7 @@ import { request } from '../helpers';
 
 import {
     generateAverage,
+    getDayAverage,
     getPrice,
     getPriceHistorical,
     getPriceMulti,
@@ -76,6 +77,20 @@ describe('cryptocompare-api', () => {
             getPriceHistorical(options);
 
             expect(request).toBeCalledWith('data/pricehistorical', options);
+        });
+    });
+
+    describe('getDayAverage', () => {
+        it('requests the day average', () => {
+            const options = {
+                fsym: 'ETH',
+                tsym: 'USD',
+                avgType: 'HOURVWAP',
+                toTs: 1512279137525,
+            };
+            getDayAverage(options);
+
+            expect(request).toBeCalledWith('data/dayAvg', options);
         });
     });
 });
