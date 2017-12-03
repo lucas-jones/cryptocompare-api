@@ -47,7 +47,9 @@ export interface BaseOptions {
      * Default: false
      */
     sign?: boolean;
+}
 
+export interface ConversionOptions extends BaseOptions {
     /**
      * If set to false, it will try to get values without using any conversion at all.
      * Default: true
@@ -55,7 +57,7 @@ export interface BaseOptions {
     tryConversion?: boolean;
 }
 
-export interface PriceOptions extends BaseOptions {
+export interface PriceOptions extends ConversionOptions {
     /** From symbol */
     fsym: fromSymbol;
 
@@ -69,7 +71,7 @@ export interface PriceOptions extends BaseOptions {
     e?: market;
 }
 
-export interface PriceMultiOptions extends BaseOptions {
+export interface PriceMultiOptions extends ConversionOptions {
     fsyms: fromSymbol[];
 
     tsyms: toSymbol[];
@@ -81,7 +83,7 @@ export interface PriceMultiOptions extends BaseOptions {
     e?: market;
 }
 
-export interface GenerateAverageOptions extends BaseOptions {
+export interface GenerateAverageOptions extends ConversionOptions {
     /** From symbol */
     fsym: fromSymbol;
 
@@ -92,7 +94,7 @@ export interface GenerateAverageOptions extends BaseOptions {
     e: market[];
 }
 
-export interface PriceHistoricalOptions extends BaseOptions {
+export interface PriceHistoricalOptions extends ConversionOptions {
     /** From symbol */
     fsym: fromSymbol;
 
@@ -112,7 +114,7 @@ export interface PriceHistoricalOptions extends BaseOptions {
     calculationType?: string;
 }
 
-export interface DayAverageOptions extends BaseOptions {
+export interface DayAverageOptions extends ConversionOptions {
     /** From symbol */
     fsym: fromSymbol;
 
@@ -132,7 +134,7 @@ export interface DayAverageOptions extends BaseOptions {
     toTs?: number;
 }
 
-export interface TopExchangesOptions {
+export interface TopExchangesOptions extends BaseOptions {
     /** From symbol */
     fsym: fromSymbol;
 
@@ -141,18 +143,6 @@ export interface TopExchangesOptions {
 
     /* Max number of top exchanges */
     limit?: number;
-
-    /**
-     * Name of your application.
-     * Default: NotAvailable
-     */
-    extraParams?: string;
-
-    /**
-     * If set to true, the server will sign the requests.
-     * Default: false
-     */
-    sign?: boolean;
 }
 
 export interface CoinListResponse {
