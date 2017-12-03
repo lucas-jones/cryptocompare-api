@@ -157,8 +157,8 @@ export interface PriceHistoricalOptions extends ConversionOptions {
      */
     e?: market | market[];
 
-    /** Unix timestamp for day to retrieve price from */
-    ts?: number;
+    /** Unix timestamp or Date for day to retrieve price from */
+    ts?: number | Date;
 
     /** Default: Close */
     calculationType?: string;
@@ -187,8 +187,8 @@ export interface DayAverageOptions extends ConversionOptions {
      */
     UTCHourDiff?: number;
 
-    /** Unix timestamp for day to average */
-    toTs?: number;
+    /** Unix timestamp or Date for day to average */
+    toTs?: number | Date;
 }
 
 export interface TopExchangesOptions extends BaseOptions {
@@ -246,9 +246,9 @@ export interface HistoricalOptions extends ConversionOptions {
     allData?: boolean;
 
     /**
-     * Starting unix timestamp
+     * Starting unix timestamp or Date
      */
-    toTs?: number;
+    toTs?: number | Date;
 }
 
 export interface CoinListResponse {
@@ -432,6 +432,6 @@ export interface HistoricalResponse {
 
     /** Flag indicating whether or not there is a value in the response */
     FirstValueInArray: boolean;
-    
+
     ConversionType: ConversionType;
 }
