@@ -39,7 +39,7 @@ export interface PriceOptions {
     tsyms: string | string[];
 
     /** Name of exchange.
-     * Default: CCCAGG
+     * Default: CCCAGG (CryptoCompare Current Aggregate)
      */
     e?: string;
 
@@ -70,7 +70,7 @@ export interface PriceMultiOptions {
     tsyms: string | string[];
 
     /** Name of exchange.
-     * Default: CCCAGG
+     * Default: CCCAGG (CryptoCompare Current Aggregate)
      */
     e?: string;
 
@@ -121,4 +121,76 @@ export interface PriceResponse {
 
 export interface PriceMultiResponse {
     [symbol: string]: PriceResponse;
+}
+
+export interface PriceMultiFullResponse {
+    RAW: {
+        [fromSymbol: string]: {
+            [toSymbol: string]: {
+                CHANGE24HOUR: number;
+                CHANGEDAY: number;
+                CHANGEPCT24HOUR: number;
+                CHANGEPCTDAY: number;
+                FLAGS: string;
+                FROMSYMBOL: string;
+                HIGH24HOUR: number;
+                HIGHDAY: number;
+                LASTMARKET: string;
+                LASTTRADEID: string;
+                LASTUPDATE: number;
+                LASTVOLUME: number;
+                LASTVOLUMETO: number;
+                LOW24HOUR: number;
+                LOWDAY: number;
+                MARKET: string;
+                MKTCAP: number;
+                OPEN24HOUR: number;
+                OPENDAY: number;
+                PRICE: number;
+                SUPPLY: number;
+                TOSYMBOL: string;
+                TOTALVOLUME24H: number;
+                TOTALVOLUME24HTO: number;
+                TYPE: string;
+                VOLUME24HOUR: number;
+                VOLUME24HOURTO: number;
+                VOLUMEDAY: number;
+                VOLUMEDAYTO: number;
+            };
+        };
+    };
+
+    DISPLAY: {
+        [fromSymbol: string]: {
+            [toSymbol: string]: {
+                CHANGE24HOUR: string;
+                CHANGEDAY: string;
+                CHANGEPCT24HOUR: string;
+                CHANGEPCTDAY: string;
+                FROMSYMBOL: string;
+                HIGH24HOUR: string;
+                HIGHDAY: string;
+                LASTMARKET: string;
+                LASTTRADEID: string;
+                LASTUPDATE: string;
+                LASTVOLUME: string;
+                LASTVOLUMETO: string;
+                LOW24HOUR: string;
+                LOWDAY: string;
+                MARKET: string;
+                MKTCAP: string;
+                OPEN24HOUR: string;
+                OPENDAY: string;
+                PRICE: string;
+                SUPPLY: string;
+                TOSYMBOL: string;
+                TOTALVOLUME24H: string;
+                TOTALVOLUME24HTO: string;
+                VOLUME24HOUR: string;
+                VOLUME24HOURTO: string;
+                VOLUMEDAY: string;
+                VOLUMEDAYTO: string;
+            };
+        };
+    };
 }

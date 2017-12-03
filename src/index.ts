@@ -3,6 +3,7 @@ import { request } from './helpers';
 
 import {
     CoinListResponse,
+    PriceMultiFullResponse,
     PriceMultiOptions,
     PriceMultiResponse,
     PriceOptions,
@@ -41,6 +42,24 @@ export const getPriceMulti = (options: PriceMultiOptions): Promise<PriceMultiRes
     const fromSymbols = Array.isArray(fsyms) ? fsyms.join(',') : fsyms;
 
     return request('pricemulti', {
+        ...opts,
+        tsyms: toSymbols,
+        fsyms: fromSymbols,
+    });
+};
+
+/**
+ * Get all the current trading info (price, vol, open, high, low etc) of any list of cryptocurrencies in any other currency that you need.
+ * If the crypto does not trade directly into the toSymbol requested, BTC will be used for conversion.
+ * This API also returns Display values for all the fields.
+ * If the oposite pair trades, it is inverted (eg.: BTC-XMR).
+ */
+export const getPriceMultiFull = (options: PriceMultiOptions): Promise<PriceMultiFullResponse> => {
+    const { fsyms, tsyms, ...opts } = options;
+    const toSymbols = Array.isArray(tsyms) ? tsyms.join(',') : tsyms;
+    const fromSymbols = Array.isArray(fsyms) ? fsyms.join(',') : fsyms;
+
+    return request('pricemultifull', {
         ...opts,
         tsyms: toSymbols,
         fsyms: fromSymbols,
