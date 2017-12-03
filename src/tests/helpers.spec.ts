@@ -36,6 +36,12 @@ describe('helpers', () => {
                 bar: 'baz',
             })).toEqual('?foo=bar&bar=baz');
         });
+
+        it('converts date objects into epoch unix time', () => {
+            expect(convertObjectToQueryString({
+                ts: new Date(1512279698326),
+            })).toEqual('?ts=1512279698326');
+        });
     });
 
     describe('request', () => {

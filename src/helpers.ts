@@ -27,7 +27,7 @@ export const convertObjectToQueryString = (obj: QueryParamsObject) => {
     const queryParamPairs: string[] = [];
 
     Object.keys(obj).forEach(key => {
-        const value = obj[key];
+        const value = stringifyQueryParamValue(obj[key]);
 
         if (value !== undefined) {
             queryParamPairs.push(`${key}=${value}`);
@@ -37,4 +37,16 @@ export const convertObjectToQueryString = (obj: QueryParamsObject) => {
     const queryString = queryParamPairs.join('&');
 
     return queryString.length ? `?${queryString}` : queryString;
+};
+
+/**
+ * Stringifies value for query strings
+ * Will return a date in epoch unix time
+ */
+export const stringifyQueryParamValue = (value: any) => { // tslint:disable-line:no-any
+    if (value instanceof Date) {
+        return value.getTime();
+    }
+
+    return value.toString();
 };
