@@ -19,8 +19,10 @@ import {
     PriceResponse,
     QueryParamsObject,
     RateLimitStatsResponse,
-    TopExchangesResponse,
+    TopCoinsByVolumeOptions,
+    TopCoinsByVolumeResponse,
     TopExchangesOptions,
+    TopExchangesResponse,
 } from './interfaces';
 
 /**
@@ -96,6 +98,15 @@ export const getDayAverage = (options: DayAverageOptions): Promise<DayAverageRes
  */
 export const getTopExchangesByVolume = (options: TopExchangesOptions): Promise<TopExchangesResponse> => {
     return request('data/top/exchanges', options);
+};
+
+/**
+  * Get top coins by volume for the to currency.
+  * It returns volume24hto and total supply (where available).
+  * The number of coins you get is the minimum of the limit you set (default 50) and the total number of coins available.
+ */
+export const getTopCoinsByVolume = (options: TopCoinsByVolumeOptions): Promise<TopCoinsByVolumeResponse> => {
+    return request('data/top/volumes', options);
 };
 
 /**

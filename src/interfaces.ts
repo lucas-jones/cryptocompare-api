@@ -2,6 +2,11 @@ export type fromSymbol = string;
 export type toSymbol = string;
 export type market = string;
 
+export enum ResponseStatus {
+    Success = 'Success',
+    Error = 'Error',
+}
+
 export interface QueryParamsObject {
     [key: string]: any; // tslint:disable-line:no-any
 }
@@ -33,6 +38,15 @@ export interface Coin {
 
     /** The order that the coin is ranked compared to other coins */
     SortOrder: number;
+}
+
+export interface CoinByVolume {
+    SYMBOL: string;
+    SUPPLY: number;
+    FULLNAME: string;
+    NAME: string;
+    ID: string;
+    VOLUME24HOURTO: number;
 }
 
 export interface BaseOptions {
@@ -145,9 +159,17 @@ export interface TopExchangesOptions extends BaseOptions {
     limit?: number;
 }
 
+export interface TopCoinsByVolumeOptions extends BaseOptions {
+    /** To symbol */
+    tsym: toSymbol;
+
+    /* Max number of top coins */
+    limit?: number;
+}
+
 export interface CoinListResponse {
     /** The type of the response */
-    Response: 'Success' | 'Error';
+    Response: keyof typeof ResponseStatus;
 
     /** The message for the response */
     Message: string;
@@ -288,4 +310,20 @@ export interface TopExchangesResponse {
     toSymbol: string;
     volume24h: number;
     volume24hTo: number;
+}
+
+export interface TopCoinsByVolumeResponse {
+    Data: CoinByVolume[];
+
+    /** Integer representing the type of response */
+    Type: number;
+
+    /** The type of the response */
+    Response: keyof typeof ResponseStatus;
+
+    /** to symbol */
+    VolSymbol: string;
+
+    /** Status message of request */
+    Message: string;
 }

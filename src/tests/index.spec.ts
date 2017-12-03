@@ -7,6 +7,7 @@ import {
     getPriceHistorical,
     getPriceMulti,
     getPriceMultiFull,
+    getTopCoinsByVolume,
     getTopExchangesByVolume,
 } from '../';
 
@@ -127,6 +128,18 @@ describe('cryptocompare-api', () => {
             expect(request).toBeCalledWith('data/top/exchanges', {
                 fsym: 'USD',
                 tsym: 'ETH',
+            });
+        });
+    });
+
+    describe('getTopCoinsByVolume', () => {
+        it('requests the top exchanges', () => {
+            getTopCoinsByVolume({
+                tsym: 'USD'
+            });
+
+            expect(request).toBeCalledWith('data/top/volumes', {
+                tsym: 'USD',
             });
         });
     });
