@@ -3,7 +3,8 @@
   "author": "Robert Honsby <rhonsby@gmail.com>",
   "description": "CryptoCompare API library",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "license": "MIT",
   "keywords": [
     "cryptocurrency",
