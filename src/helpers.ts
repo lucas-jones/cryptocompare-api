@@ -7,7 +7,7 @@ import {
  */
 export const request = (path: string, options: QueryParamsObject = {}): Promise<any> => { // tslint:disable-line:no-any
     const queryString = convertObjectToQueryString(options);
-    const url = `https://min-api.cryptocompare.com/data/${path}${queryString}`;
+    const url = `https://min-api.cryptocompare.com/${path}${queryString}`;
 
     return fetch(url)
         .then(res => res.json())

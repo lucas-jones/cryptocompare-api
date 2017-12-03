@@ -18,7 +18,7 @@ describe('cryptocompare-api', () => {
             };
             getPrice(options);
 
-            expect(request).toBeCalledWith('price', options);
+            expect(request).toBeCalledWith('data/price', options);
         });
     });
 
@@ -30,7 +30,7 @@ describe('cryptocompare-api', () => {
             };
             getPriceMulti(options);
 
-            expect(request).toBeCalledWith('pricemulti', options);
+            expect(request).toBeCalledWith('data/pricemulti', options);
         });
     });
 
@@ -42,7 +42,7 @@ describe('cryptocompare-api', () => {
             };
             getPriceMultiFull(options);
 
-            expect(request).toBeCalledWith('pricemultifull', options);
+            expect(request).toBeCalledWith('data/pricemultifull', options);
         });
     });
 
@@ -58,7 +58,7 @@ describe('cryptocompare-api', () => {
             };
             generateAverage(options);
 
-            expect(request).toBeCalledWith('generateAvg', options);
+            expect(request).toBeCalledWith('data/generateAvg', options);
         });
     });
 });

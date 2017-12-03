@@ -43,7 +43,7 @@ describe('helpers', () => {
             global.fetch = jest.fn().mockReturnValue(getResolvedFetch({}));
             request('some-crypto-prices');
 
-            expect(global.fetch).toBeCalledWith(`https://min-api.cryptocompare.com/data/some-crypto-prices`);
+            expect(global.fetch).toBeCalledWith(`https://min-api.cryptocompare.com/some-crypto-prices`);
         });
 
         it('calls fetch with the full url and query parameters', () => {
@@ -55,7 +55,7 @@ describe('helpers', () => {
             });
 
             expect(global.fetch).toBeCalledWith(
-                `https://min-api.cryptocompare.com/data/some-crypto-prices?fsym=BTC&tsyms=ETH&app_name=test_app`
+                `https://min-api.cryptocompare.com/some-crypto-prices?fsym=BTC&tsyms=ETH&app_name=test_app`
             );
         });
 

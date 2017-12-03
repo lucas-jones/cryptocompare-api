@@ -1,3 +1,7 @@
+// tslint:disable
+/// <reference path="./typings/global.d.ts" />
+global.fetch = require('node-fetch');
+
 import { request } from './helpers';
 
 import {
@@ -10,13 +14,14 @@ import {
     PriceOptions,
     PriceResponse,
     QueryParamsObject,
+    RateLimitStatsResponse,
 } from './interfaces';
 
 /**
  * Get general info for all the coins available on the website.
  */
 export const getCoinList = (): Promise<CoinListResponse> => {
-    return request('all/coinlist');
+    return request('data/all/coinlist');
 };
 
 /**
@@ -24,7 +29,7 @@ export const getCoinList = (): Promise<CoinListResponse> => {
  * Really fast, 20-60 ms. Cached each 10 seconds.
  */
 export const getPrice = (options: PriceOptions): Promise<PriceResponse> => {
-    return request('price', options);
+    return request('data/price', options);
 };
 
 /**
@@ -32,7 +37,7 @@ export const getPrice = (options: PriceOptions): Promise<PriceResponse> => {
  * Returns a matrix.
  */
 export const getPriceMulti = (options: PriceMultiOptions): Promise<PriceMultiResponse> => {
-    return request('pricemulti', options);
+    return request('data/pricemulti', options);
 };
 
 /**
@@ -43,12 +48,33 @@ export const getPriceMulti = (options: PriceMultiOptions): Promise<PriceMultiRes
  * If the oposite pair trades, it is inverted (eg.: BTC-XMR).
  */
 export const getPriceMultiFull = (options: PriceMultiOptions): Promise<PriceMultiFullResponse> => {
-    return request('pricemultifull', options);
+    return request('data/pricemultifull', options);
 };
 
 /**
  * Same as getPriceMultiFull, but values are averaged based on markets
  */
 export const generateAverage = (options: GenerateAverageOptions): Promise<GenerateAverageResponse> => {
-    return request('generateAvg', options);
+    return request('data/generateAvg', options);
+};
+
+/**
+ * Get the rate limits left for you on the histo, price and news paths in the current hour.
+ */
+export const getHourRateLimit = (): Promise<RateLimitStatsResponse> => {
+    return request('stats/rate/hour/limit');
+};
+
+/**
+ * Get the rate limits left for you on the histo, price and news paths in the current minute.
+ */
+export const getMinuteRateLimit = (): Promise<RateLimitStatsResponse> => {
+    return request('stats/rate/minute/limit');
+};
+
+/**
+ * Get the rate limits left for you on the histo, price and news paths in the current minute.
+ */
+export const getSecondRateLimit = (): Promise<RateLimitStatsResponse> => {
+    return request('stats/rate/second/limit');
 };

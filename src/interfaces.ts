@@ -232,3 +232,15 @@ export interface GenerateAverageResponse {
     RAW: FullRawResponse;
     DISPLAY: FullDisplayResponse;
 }
+
+export interface RateLimitStats {
+    Histo: number;
+    News: number;
+    Price: number;
+}
+
+export interface RateLimitStatsResponse {
+    Message: string;
+    CallsMade: RateLimitStats;
+    CallsLeft: RateLimitStats;
+}
