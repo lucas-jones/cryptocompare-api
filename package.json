@@ -1,8 +1,25 @@
 {
   "name": "cryptocompare-api",
+  "author": "Robert Honsby <rhonsby@gmail.com>",
+  "description": "CryptoCompare API library",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "keywords": [
+    "cryptocurrency",
+    "bitcoin",
+    "ethereum",
+    "api",
+    "cryptocompare"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rhonsby/cryptocompare-api.git"
+  },
+  "homepage": "https://github.com/rhonsby/cryptocompare-api",
+  "bugs": {
+    "url": "https://github.com/rhonsby/cryptocompare-api/issues"
+  },
   "scripts": {
     "lint": "tslint --exclude '**/*.d.ts' 'src/**/*.ts'",
     "test": "node --trace-warnings node_modules/.bin/jest --config=jest.config.json --forceExit"
