@@ -7,6 +7,7 @@ import {
     getPriceHistorical,
     getPriceMulti,
     getPriceMultiFull,
+    getTopExchangesInVolume,
 } from '../';
 
 jest.mock('helpers');
@@ -91,6 +92,20 @@ describe('cryptocompare-api', () => {
             getDayAverage(options);
 
             expect(request).toBeCalledWith('data/dayAvg', options);
+        });
+    });
+
+    describe('getTopExchangesInVolume', () => {
+        it('requests the top exchanges', () => {
+            getTopExchangesInVolume({
+                fsym: 'USD',
+                tsym: 'ETH',
+            });
+
+            expect(request).toBeCalledWith('data/top/exchanges', {
+                fsym: 'USD',
+                tsym: 'ETH',
+            });
         });
     });
 });

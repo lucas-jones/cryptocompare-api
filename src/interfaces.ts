@@ -132,6 +132,29 @@ export interface DayAverageOptions extends BaseOptions {
     toTs?: number;
 }
 
+export interface TopExchangesOptions {
+    /** From symbol */
+    fsym: fromSymbol;
+
+    /** To symbol */
+    tsym: toSymbol;
+
+    /* Max number of top exchanges */
+    limit?: number;
+
+    /**
+     * Name of your application.
+     * Default: NotAvailable
+     */
+    extraParams?: string;
+
+    /**
+     * If set to true, the server will sign the requests.
+     * Default: false
+     */
+    sign?: boolean;
+}
+
 export interface CoinListResponse {
     /** The type of the response */
     Response: 'Success' | 'Error';
@@ -267,4 +290,12 @@ export interface RateLimitStatsResponse {
     Message: string;
     CallsMade: RateLimitStats;
     CallsLeft: RateLimitStats;
+}
+
+export interface TopExchanges {
+    exchange: string;
+    fromSymbol: string;
+    toSymbol: string;
+    volume24h: number;
+    volume24hTo: number;
 }
