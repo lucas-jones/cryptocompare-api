@@ -70,11 +70,25 @@ describe('helpers', () => {
             const jsonBody = {
                 Response: 'Error',
                 Message: 'Service is unavailable',
+                ErrorsSummary: 'Not implemented',
             };
             global.fetch = () => getResolvedFetch(jsonBody);
 
             await expect(request('some-crypto-prices')).rejects.toEqual(
                 expect.objectContaining({ message: 'Service is unavailable' })
+            );
+        });
+
+        it('throws an error using the errors summary if the message is empty', async () => {
+            const jsonBody = {
+                Response: 'Error',
+                Message: '',
+                ErrorsSummary: 'Not implemented',
+            };
+            global.fetch = () => getResolvedFetch(jsonBody);
+
+            await expect(request('some-crypto-prices')).rejects.toEqual(
+                expect.objectContaining({ message: 'Not implemented' })
             );
         });
     });

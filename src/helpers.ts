@@ -13,7 +13,7 @@ export const request = (path: string, options: QueryParamsObject = {}): Promise<
         .then(res => res.json())
         .then(body => {
             if (body.Response === 'Error') {
-                throw new Error(body.Message);
+                throw new Error(body.Message || body.ErrorsSummary);
             }
 
             return body;
