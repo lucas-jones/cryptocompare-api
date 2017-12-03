@@ -1,8 +1,9 @@
-global.fetch = require('node-fetch');
 import { request } from './helpers';
 
 import {
     CoinListResponse,
+    GenerateAverageOptions,
+    GenerateAverageResponse,
     PriceMultiFullResponse,
     PriceMultiOptions,
     PriceMultiResponse,
@@ -64,4 +65,11 @@ export const getPriceMultiFull = (options: PriceMultiOptions): Promise<PriceMult
         tsyms: toSymbols,
         fsyms: fromSymbols,
     });
+};
+
+/**
+ * Same as getPriceMultiFull, but values are averaged based on markets
+ */
+export const generateAverage = (options: GenerateAverageOptions): Promise<GenerateAverageResponse> => {
+    return request('generateAvg', options);
 };

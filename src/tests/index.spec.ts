@@ -3,6 +3,7 @@ import {
     getPrice,
     getPriceMulti,
     getPriceMultiFull,
+    generateAverage,
 } from '../';
 
 jest.mock('helpers');
@@ -123,6 +124,22 @@ describe('cryptocompare-api', () => {
                 tsyms: 'ETH,LTC,BTC',
                 sign: false,
             });
+        });
+    });
+
+    describe('generateAverage', () => {
+        it('requests the generate average', () => {
+            const options = {
+                fsym: 'ETH',
+                tsym: 'USD',
+                e: [
+                    'Coinbase',
+                    'Kraken',
+                ],
+            };
+
+            generateAverage(options);
+            expect(request).toBeCalledWith('generateAvg', options);
         });
     });
 });
