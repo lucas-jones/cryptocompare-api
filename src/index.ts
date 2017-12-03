@@ -1,7 +1,3 @@
-// tslint:disable
-/// <reference path="./typings/global.d.ts" />
-global.fetch = require('node-fetch');
-
 import { request } from './helpers';
 
 import {
@@ -28,23 +24,31 @@ import {
 } from './interfaces';
 
 /**
- * Get general info for all the coins available on the website.
+ * Returns all the coins that CryptoCompare has added to the website.
+ *
+ * Cache duration: 60 seconds
  */
 export const getCoinList = (): Promise<CoinListResponse> => {
     return request('data/all/coinlist');
 };
 
 /**
- * Get the latest price for a list of one or more currencies.
- * Really fast, 20-60 ms. Cached each 10 seconds.
+ * Get the current price of any cryptocurrency in any other currency that you need.
+ * If the crypto does not trade directly into the toSymbol requested, BTC will be used for conversion.
+ * If the opposite pair trades, it is inverted. (eg.: BTC-XMR)
+ *
+ * Cache duration: 10 seconds
  */
 export const getPrice = (options: PriceOptions): Promise<PriceResponse> => {
     return request('data/price', options);
 };
 
 /**
- * Same as single getPrice but with multiple from symbols.
- * Returns a matrix.
+ * Get the current price of any cryptocurrency in a matrix with any other currencies that you need.
+ * If the crypto does not trade directly into the toSymbol requested, BTC will be used for conversion.
+ * If the opposite pair trades, it is inverted. (eg.: BTC-XMR)
+ *
+ * Cache duration: 10 seconds
  */
 export const getPriceMulti = (options: PriceMultiOptions): Promise<PriceMultiResponse> => {
     return request('data/pricemulti', options);
@@ -55,14 +59,22 @@ export const getPriceMulti = (options: PriceMultiOptions): Promise<PriceMultiRes
  * of any list of cryptocurrencies in any other currency that you need.
  * If the crypto does not trade directly into the toSymbol requested, BTC will be used for conversion.
  * This API also returns Display values for all the fields.
- * If the oposite pair trades, it is inverted (eg.: BTC-XMR).
+ * If the opposite pair trades, it is inverted (eg.: BTC-XMR).
+ *
+ * Cache duration: 10 seconds
  */
 export const getPriceMultiFull = (options: PriceMultiOptions): Promise<PriceMultiFullResponse> => {
     return request('data/pricemultifull', options);
 };
 
 /**
- * Same as getPriceMultiFull, but values are averaged based on markets
+ * Get all the current trading info (price, vol, open, high, low etc) averaged across markets.
+ * of any list of cryptocurrencies in any other currency that you need.
+ * If the crypto does not trade directly into the toSymbol requested, BTC will be used for conversion.
+ * This API also returns Display values for all the fields.
+ * If the opposite pair trades, it is inverted (eg.: BTC-XMR).
+ *
+ * Cache duration: 10 seconds
  */
 export const generateAverage = (options: GenerateAverageOptions): Promise<GenerateAverageResponse> => {
     return request('data/generateAvg', options);
@@ -72,8 +84,11 @@ export const generateAverage = (options: GenerateAverageOptions): Promise<Genera
  * Get the price of any cryptocurrency in any other currency that you need at a given timestamp.
  * The price comes from the daily info, so it would be the price at the end of the day GMT based on the requested TS.
  * If the crypto does not trade directly into the toSymbol requested, BTC will be used for conversion.
- * Tries to get direct trading pair data. If there is none or it is more than 30 days before the ts requested, it uses BTC conversion.
+ * Tries to get direct trading pair data.
+ * If there is none or it is more than 30 days before the ts requested, it uses BTC conversion.
  * If the opposite pair trades, it is inverted (eg.: BTC-XMR).
+ *
+ * Cache duration: 24 hours
  */
 export const getPriceHistorical = (options: PriceHistoricalOptions): Promise<PriceHistoricalResponse> => {
     return request('data/pricehistorical', options);
@@ -88,7 +103,9 @@ export const getPriceHistorical = (options: PriceHistoricalOptions): Promise<Pri
  * The calculation types are:
  *  - VWAP: a VWAP of the hourly close price
  *  - MidHighLow: the average between the 24 H high and low
- *  - VolFVolT - the total volume from / the total volume to (only available with tryConversion set to false so only for direct trades but the value should be the most accurate average day price)
+ *  - VolFVolT - the total volume from / the total volume to (only available with tryConversion set to false)
+ *
+ * Cache duration: ~10 minutes (610 seconds)
  */
 export const getDayAverage = (options: DayAverageOptions): Promise<DayAverageResponse> => {
     return request('data/dayAvg', options);
@@ -96,16 +113,20 @@ export const getDayAverage = (options: DayAverageOptions): Promise<DayAverageRes
 
 /**
  * Get top exchanges by volume for a currency pair.
- * The number of exchanges you get is the minimum of the limit you set (default 5) and the total number of exchanges available.
+ * The number of exchanges you get is the minimum of the limit you set and the total number of exchanges available.
+ *
+ * Cache duration: 2 minutes
  */
 export const getTopExchangesByVolume = (options: TopExchangesOptions): Promise<TopExchangesResponse> => {
     return request('data/top/exchanges', options);
 };
 
 /**
-  * Get top coins by volume for the to currency.
-  * It returns volume24hto and total supply (where available).
-  * The number of coins you get is the minimum of the limit you set (default 50) and the total number of coins available.
+ * Get top coins by volume for the to currency.
+ * It returns volume24hto and total supply (where available).
+ * The number of coins you get is the minimum of the limit you set (default 50) and the total number of coins available.
+ *
+ * Cache duration: 2 minutes
  */
 export const getTopCoinsByVolume = (options: TopCoinsByVolumeOptions): Promise<TopCoinsByVolumeResponse> => {
     return request('data/top/volumes', options);
@@ -115,6 +136,8 @@ export const getTopCoinsByVolume = (options: TopCoinsByVolumeOptions): Promise<T
  * Get open, high, low, close, volumefrom and volumeto from the daily historical data.
  * The values are based on 00:00 GMT time.
  * It uses BTC conversion if data is not available because the coin is not trading in the specified currency.
+ *
+ * Cache duration: ~10 minutes (610 seconds)
  */
 export const getHistoricalDays = (options: HistoricalOptions): Promise<HistoricalResponse> => {
     return request('data/histoday', options);
@@ -123,6 +146,8 @@ export const getHistoricalDays = (options: HistoricalOptions): Promise<Historica
 /**
  * Get open, high, low, close, volumefrom and volumeto from the hourly historical data.
  * It uses BTC conversion if data is not available because the coin is not trading in the specified currency.
+ *
+ * Cache duration: ~10 minutes (610 seconds)
  */
 export const getHistoricalHours = (options: HistoricalOptions): Promise<HistoricalResponse> => {
     return request('data/histohour', options);
@@ -132,6 +157,8 @@ export const getHistoricalHours = (options: HistoricalOptions): Promise<Historic
  * Get open, high, low, close, volumefrom and volumeto from the each minute historical data.
  * This data is only stored for 7 days, if you need more, use the hourly or daily path.
  * It uses BTC conversion if data is not available because the coin is not trading in the specified currency.
+ *
+ * Cache duration: 40 seconds
  */
 export const getHistoricalMinutes = (options: HistoricalOptions): Promise<HistoricalResponse> => {
     return request('data/histominute', options);
@@ -139,6 +166,8 @@ export const getHistoricalMinutes = (options: HistoricalOptions): Promise<Histor
 
 /**
  * Get the rate limits left for you on the histo, price and news paths in the current hour.
+ *
+ * Cache duration: No cache
  */
 export const getHourRateLimit = (): Promise<RateLimitStatsResponse> => {
     return request('stats/rate/hour/limit');
@@ -146,6 +175,8 @@ export const getHourRateLimit = (): Promise<RateLimitStatsResponse> => {
 
 /**
  * Get the rate limits left for you on the histo, price and news paths in the current minute.
+ *
+ * Cache duration: No cache
  */
 export const getMinuteRateLimit = (): Promise<RateLimitStatsResponse> => {
     return request('stats/rate/minute/limit');
@@ -153,6 +184,8 @@ export const getMinuteRateLimit = (): Promise<RateLimitStatsResponse> => {
 
 /**
  * Get the rate limits left for you on the histo, price and news paths in the current minute.
+ *
+ * Cache duration: No cache
  */
 export const getSecondRateLimit = (): Promise<RateLimitStatsResponse> => {
     return request('stats/rate/second/limit');
