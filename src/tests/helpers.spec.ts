@@ -1,3 +1,4 @@
+// tslint:disable-next-line:no-reference
 /// <reference path="../typings/global.d.ts" />
 
 import {
@@ -9,7 +10,7 @@ const getResolvedFetch = (json: object) => {
     return Promise.resolve({
         json: () => json,
     });
-}
+};
 
 describe('helpers', () => {
     describe('convertObjectToQueryString', () => {
@@ -53,7 +54,9 @@ describe('helpers', () => {
                 app_name: 'test_app'
             });
 
-            expect(global.fetch).toBeCalledWith(`https://min-api.cryptocompare.com/data/some-crypto-prices?fsym=BTC&tsyms=ETH&app_name=test_app`);
+            expect(global.fetch).toBeCalledWith(
+                `https://min-api.cryptocompare.com/data/some-crypto-prices?fsym=BTC&tsyms=ETH&app_name=test_app`
+            );
         });
 
         it('returns the json body', async () => {

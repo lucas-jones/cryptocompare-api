@@ -5,7 +5,7 @@ import {
 /**
  * Gets data from the CryptoCompare api.
  */
-export const request = (path: string, options: QueryParamsObject = {}): Promise<any> => {
+export const request = (path: string, options: QueryParamsObject = {}): Promise<any> => { // tslint:disable-line:no-any
     const queryString = convertObjectToQueryString(options);
     const url = `https://min-api.cryptocompare.com/data/${path}${queryString}`;
 

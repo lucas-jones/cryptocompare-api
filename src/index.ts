@@ -36,7 +36,8 @@ export const getPriceMulti = (options: PriceMultiOptions): Promise<PriceMultiRes
 };
 
 /**
- * Get all the current trading info (price, vol, open, high, low etc) of any list of cryptocurrencies in any other currency that you need.
+ * Get all the current trading info (price, vol, open, high, low etc)
+ * of any list of cryptocurrencies in any other currency that you need.
  * If the crypto does not trade directly into the toSymbol requested, BTC will be used for conversion.
  * This API also returns Display values for all the fields.
  * If the oposite pair trades, it is inverted (eg.: BTC-XMR).

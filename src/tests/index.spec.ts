@@ -1,9 +1,10 @@
 import { request } from '../helpers';
+
 import {
+    generateAverage,
     getPrice,
     getPriceMulti,
     getPriceMultiFull,
-    generateAverage,
 } from '../';
 
 jest.mock('helpers');

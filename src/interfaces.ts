@@ -1,5 +1,5 @@
 export interface QueryParamsObject {
-    [key: string]: any;
+    [key: string]: any; // tslint:disable-line:no-any
 }
 
 export interface Coin {
@@ -22,7 +22,7 @@ export interface Coin {
     FullName: string;
 
     /** The algorithm of the cryptocurrency */
-    Algorithm: String;
+    Algorithm: string;
 
     /** The proof type of the cryptocurrency */
     ProofType: string;
@@ -140,16 +140,16 @@ export interface CoinListResponse {
 
     // TODO: fill out;
     Data: {
-        [symbol: string]: Coin;
+        [currencySymbol: string]: Coin;
     };
 }
 
 export interface PriceResponse {
-    [symbol: string]: number;
+    [currencySymbol: string]: number;
 }
 
 export interface PriceMultiResponse {
-    [symbol: string]: PriceResponse;
+    [currencySymbol: string]: PriceResponse;
 }
 
 export interface FullRawResponse {
