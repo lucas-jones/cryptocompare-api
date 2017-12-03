@@ -292,7 +292,7 @@ export interface RateLimitStatsResponse {
     CallsLeft: RateLimitStats;
 }
 
-export interface TopExchanges {
+export interface TopExchangesResponse {
     exchange: string;
     fromSymbol: string;
     toSymbol: string;

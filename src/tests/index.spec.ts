@@ -7,7 +7,7 @@ import {
     getPriceHistorical,
     getPriceMulti,
     getPriceMultiFull,
-    getTopExchangesInVolume,
+    getTopExchangesByVolume,
 } from '../';
 
 jest.mock('helpers');
@@ -15,89 +15,111 @@ jest.mock('helpers');
 describe('cryptocompare-api', () => {
     describe('getPrice', () => {
         it('requests for the price', () => {
-            const options = {
+            getPrice({
                 fsym: 'BTC',
                 tsyms: ['ETH', 'USD'],
-            };
-            getPrice(options);
+            });
 
-            expect(request).toBeCalledWith('data/price', options);
+            expect(request).toBeCalledWith('data/price', {
+                fsym: 'BTC',
+                tsyms: ['ETH', 'USD'],
+            });
         });
     });
 
     describe('getPriceMulti', () => {
         it('requests for a matrix of prices', () => {
-            const options = {
+            getPriceMulti({
                 fsyms: ['BTC', 'USD'],
                 tsyms: ['ETH', 'LTC'],
-            };
-            getPriceMulti(options);
+            });
 
-            expect(request).toBeCalledWith('data/pricemulti', options);
+            expect(request).toBeCalledWith('data/pricemulti', {
+                fsyms: ['BTC', 'USD'],
+                tsyms: ['ETH', 'LTC'],
+            });
         });
     });
 
     describe('getPriceMultiFull', () => {
         it('requests for a matrix of prices with full details', () => {
-            const options = {
+            getPriceMultiFull({
                 fsyms: ['BTC', 'LTC'],
                 tsyms: ['ETH', 'LTC', 'BTC'],
-            };
-            getPriceMultiFull(options);
+            });
 
-            expect(request).toBeCalledWith('data/pricemultifull', options);
+            expect(request).toBeCalledWith('data/pricemultifull', {
+                fsyms: ['BTC', 'LTC'],
+                tsyms: ['ETH', 'LTC', 'BTC'],
+            });
         });
     });
 
     describe('generateAverage', () => {
         it('requests the generate average', () => {
-            const options = {
+            generateAverage({
                 fsym: 'ETH',
                 tsym: 'USD',
                 e: [
                     'Coinbase',
                     'Kraken',
                 ],
-            };
-            generateAverage(options);
+            });
 
-            expect(request).toBeCalledWith('data/generateAvg', options);
+            expect(request).toBeCalledWith('data/generateAvg', {
+                fsym: 'ETH',
+                tsym: 'USD',
+                e: [
+                    'Coinbase',
+                    'Kraken',
+                ],
+            });
         });
     });
 
     describe('getPriceHistorical', () => {
         it('requests the historical price', () => {
-            const options = {
+            getPriceHistorical({
                 fsym: 'ETH',
                 tsyms: ['USD', 'LTC'],
                 e: [
                     'Coinbase',
                     'Kraken',
                 ],
-            };
-            getPriceHistorical(options);
+            });
 
-            expect(request).toBeCalledWith('data/pricehistorical', options);
+            expect(request).toBeCalledWith('data/pricehistorical', {
+                fsym: 'ETH',
+                tsyms: ['USD', 'LTC'],
+                e: [
+                    'Coinbase',
+                    'Kraken',
+                ],
+            });
         });
     });
 
     describe('getDayAverage', () => {
         it('requests the day average', () => {
-            const options = {
+            getDayAverage({
                 fsym: 'ETH',
                 tsym: 'USD',
                 avgType: 'HOURVWAP',
                 toTs: 1512279137525,
-            };
-            getDayAverage(options);
+            });
 
-            expect(request).toBeCalledWith('data/dayAvg', options);
+            expect(request).toBeCalledWith('data/dayAvg', {
+                fsym: 'ETH',
+                tsym: 'USD',
+                avgType: 'HOURVWAP',
+                toTs: 1512279137525,
+            });
         });
     });
 
-    describe('getTopExchangesInVolume', () => {
+    describe('getTopExchangesByVolume', () => {
         it('requests the top exchanges', () => {
-            getTopExchangesInVolume({
+            getTopExchangesByVolume({
                 fsym: 'USD',
                 tsym: 'ETH',
             });

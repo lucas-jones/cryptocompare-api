@@ -19,7 +19,7 @@ import {
     PriceResponse,
     QueryParamsObject,
     RateLimitStatsResponse,
-    TopExchanges,
+    TopExchangesResponse,
     TopExchangesOptions,
 } from './interfaces';
 
@@ -94,7 +94,7 @@ export const getDayAverage = (options: DayAverageOptions): Promise<DayAverageRes
  * Get top exchanges by volume for a currency pair.
  * The number of exchanges you get is the minimum of the limit you set (default 5) and the total number of exchanges available.
  */
-export const getTopExchangesInVolume = (options: TopExchangesOptions): Promise<TopExchanges> => {
+export const getTopExchangesByVolume = (options: TopExchangesOptions): Promise<TopExchangesResponse> => {
     return request('data/top/exchanges', options);
 };
 
