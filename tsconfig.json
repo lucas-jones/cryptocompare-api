@@ -3,6 +3,7 @@
         "baseUrl": "src",
         "declaration": true,
         "module": "commonjs",
+	"skipLibCheck": true,
         "outDir": "lib",
         "sourceMap": true,
         "strict": true,

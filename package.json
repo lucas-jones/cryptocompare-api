@@ -27,6 +27,9 @@
     "test": "TZ=America/Los_Angeles node --trace-warnings node_modules/.bin/jest --config=jest.config.json --forceExit",
     "prepublish": "yarn run build"
   },
+  "dependencies": {
+    "typescript": "^2.6.2"
+  },
   "devDependencies": {
     "@types/jest": "^21.1.8",
     "@types/node-fetch": "^1.6.7",
